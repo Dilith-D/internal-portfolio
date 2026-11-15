@@ -370,6 +370,13 @@ Netlify auto-builds on every push to either remote.
 |-----|--------|-------------|
 | v1.0 | `556710b` | Original design, voice assistant, all content |
 | v2.0 | `57c3192` | Bento redesign, WebGL animated background, dark mode contrast fix |
+| v2.2 | `73f83d4` | Pulseboard project page rewritten as Winledger (Nov 2026) |
+
+### Staging trap (found 15 Nov 2026)
+
+Pushes to the `staging` remote no longer trigger a Netlify build: the last automatic staging deploy was 17 May 2026, so the GitHub link for `internal-portfolio-dilith` is broken. Until it is reconnected in the Netlify dashboard, start the build by hand after pushing: `netlify api createSiteBuild --data '{"site_id":"<internal-portfolio-dilith id>"}'` (the id is in `netlify sites:list`). Production builds from `origin` still trigger normally.
+
+The `staging` remote URL used to embed a GitHub token; it now uses the plain URL and the GitHub CLI credential helper, like `origin`. Never put a token in a remote URL.
 
 ### Prod push sequence
 
