@@ -41,7 +41,7 @@ const SUMMARIES: Record<string, string> = {
   'iris':
     `Built 2026. Cross-device private file and message transfer app. Problem: moving files between four personal devices (Android, iPad, two laptops) without using WhatsApp or email as workarounds. Stack: React 18, TypeScript, Supabase, Tailwind CSS. Key decisions: device registration instead of user accounts; 8-character pairing codes instead of phone numbers; 7-day session expiry to keep the tool lightweight. Rebuilt from an earlier version (D-Chat) after the original Neumorphic design system failed in dark mode on mobile.`,
 
-  'pulseboard':
+  'winledger':
     `Winledger, formerly Pulseboard. Built 2025, rebuilt November 2026. Live at winledger.vercel.app. A private brag sheet for people with office jobs: log work wins as they happen, import the spreadsheet you already keep, pull a plain-text summary of any period for a performance review or job hunt. Version one was a weekend build (GPT for scope, Claude for spec, Lovable for UI, Supabase). Version two began with an audit run as four parallel Claude Code reviews (product, daily use, onboarding, security), which found an unclear position, onboarding that assumed Dilith's own job, an AI endpoint anyone could call, and bugs that silently damaged the record (an edit-then-add overwrite, dates a day early west of UTC, a 1,000-entry cap). Key decisions: (1) Position it as a brag sheet whose competitor is the spreadsheet, so logging is one line and importing any existing sheet is the first-run path. (2) Remove the AI summary, because it was prompted to quantify achievements in documents people give their employer; the summary now uses only what the user wrote and no AI provider sees entries. (3) Fix data integrity before features, with date tests run across timezones. (4) Move off Lovable to an owned Supabase project with row-level security checked between two test users, account deletion, privacy terms and Google sign-in. (5) Rename. Rebuilt with Claude Code as the engineering team, in three parallel branches that Dilith merged. Honest caveats: one user so far, no reminders yet, and the signal-versus-noise flag from version one is still unbuilt.`,
 
   'superpilot':
@@ -105,7 +105,7 @@ export async function GET() {
 
   // Newest first, matching /projects. Frontmatter only carries a year, so the order is
   // explicit. A new project goes at the top; anything not listed falls to the end.
-  const PROJECT_ORDER = ['reeve', 'delphi', 'superpilot', 'voice-agent', 'iris', 'pulseboard'];
+  const PROJECT_ORDER = ['reeve', 'delphi', 'superpilot', 'voice-agent', 'iris', 'winledger'];
   const rank = (slug: string) => {
     const i = PROJECT_ORDER.indexOf(slug);
     return i === -1 ? PROJECT_ORDER.length : i;

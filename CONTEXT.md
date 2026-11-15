@@ -81,7 +81,7 @@ src/
 │   ├── writing/spotify-wrapped.mdx
 │   ├── projects/index.astro
 │   ├── projects/iris.mdx
-│   ├── projects/pulseboard.mdx   — Winledger (renamed Nov 2026; slug kept, /projects/winledger redirects)
+│   ├── projects/winledger.mdx    — Winledger, formerly Pulseboard (renamed Nov 2026; /projects/pulseboard redirects here)
 │   ├── about.astro
 │   ├── now.astro
 │   ├── contact.astro

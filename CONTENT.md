@@ -110,7 +110,7 @@ CURRENT STATE
 
 ● SHIPPED                    dot: --color-blue
   Iris, cross-device file transfer            → /projects/iris
-  Winledger, a private brag sheet             → /projects/pulseboard
+  Winledger, a private brag sheet             → /projects/winledger
   Voice assistant on this site                → /projects/voice-agent
 
 ● IN PROGRESS                dot: --color-status-amber (#C9862F)
@@ -1045,7 +1045,7 @@ The name D-Chat was fine for a personal tool. Spending a few more minutes on it 
 
 ## Project 2: Winledger (formerly Pulseboard)
 
-**File:** `src/pages/projects/pulseboard.mdx` (slug kept as `pulseboard` so old links work; `/projects/winledger` redirects to it in `netlify.toml`)
+**File:** `src/pages/projects/winledger.mdx` (the old `/projects/pulseboard` URL redirects here in `netlify.toml`)
 
 ```yaml
 ---
@@ -1053,7 +1053,7 @@ title: "Winledger"
 problem: "A colleague asked what I'd been working on and I blanked. I built a work log in a weekend, then a year later audited it like a product I had to launch, cut the AI, and rebuilt it with Claude Code."
 stack: ["React", "Supabase", "Claude Code"]
 year: "2025 · 2026"
-slug: "pulseboard"
+slug: "winledger"
 ---
 ```
 

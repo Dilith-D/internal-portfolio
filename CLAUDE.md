@@ -40,7 +40,7 @@ dilithdinesh/
 │   │   ├── projects/
 │   │   │   ├── index.astro
 │   │   │   ├── iris.mdx
-│   │   │   └── pulseboard.mdx
+│   │   │   └── winledger.mdx
 │   │   ├── now.astro
 │   │   ├── about.astro
 │   │   ├── contact.astro
@@ -65,7 +65,7 @@ dilithdinesh/
 │   │       ├── CPQDecision.astro
 │   │       ├── IrisArchitecture.astro
 │   │       ├── OutcomeMetrics.astro
-│   │       ├── PulseboardSequence.astro
+│   │       ├── WinledgerSequence.astro
 │   │       ├── RapidoHabitLoop.astro
 │   │       ├── RapidoPositioning.astro
 │   │       ├── StopgapDecision.astro
