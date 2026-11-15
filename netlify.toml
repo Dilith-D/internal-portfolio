@@ -27,6 +27,12 @@
   status = 301
   force = true
 
+# ── Renamed project: Pulseboard is now Winledger. The original slug stays canonical ──
+[[redirects]]
+  from = "/projects/winledger"
+  to = "/projects/pulseboard"
+  status = 301
+
 # ── Sitemap alias (legacy /sitemap.xml → canonical sitemap-index.xml) ───────
 [[redirects]]
   from = "/sitemap.xml"

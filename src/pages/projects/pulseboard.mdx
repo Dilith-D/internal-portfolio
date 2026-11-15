@@ -1,23 +1,26 @@
 ---
 layout: ../../layouts/Prose.astro
-title: "Pulseboard"
-description: "Pulseboard is a personal work-tracking tool for product managers built by Dilith Dinesh, daily activity logging, effort distribution visualizations, and AI-generated performance summaries."
-summary: "I wanted to understand what it actually takes to build a B2B SaaS from zero."
-tags: ["B2B SaaS", "Lovable", "RICE Framework"]
-date: "2025"
+title: "Winledger"
+description: "How Dilith Dinesh built Pulseboard, a work log, in a weekend, then audited it like a product he had to launch and rebuilt it with Claude Code as Winledger: a private brag sheet with no AI, a spreadsheet import, and data the user owns."
+summary: "I built a work log for myself in a weekend. A year later I audited it like a product I had to launch, cut my favourite feature, and rebuilt it as Winledger."
+tags: ["Positioning", "0 to 1", "Claude Code"]
+date: "2025, rebuilt 2026"
 slug: "pulseboard"
 schema:
   "@context": "https://schema.org"
   "@type": "SoftwareApplication"
-  name: "Pulseboard"
-  applicationCategory: "Productivity"
-  description: "A personal work-tracking and reflection tool for product managers, built by Dilith Dinesh. Surfaces effort distribution patterns and generates AI-powered performance summaries from daily activity logs. Built with Lovable and Supabase."
+  name: "Winledger"
+  alternateName: "Pulseboard"
+  applicationCategory: "BusinessApplication"
+  description: "A private brag sheet for people with office jobs: log work wins as they happen, import an existing spreadsheet, and pull a plain-text summary of any period for a performance review or job hunt. No AI reads the user's work. Built by Dilith Dinesh, first as Pulseboard on Lovable (2025), then audited and rebuilt with Claude Code on React, Supabase and Vercel (2026)."
   author:
     "@type": "Person"
     name: "Dilith Dinesh"
     url: "https://dilithdinesh.com"
   datePublished: "2025"
+  dateModified: "2026-11"
   url: "https://dilithdinesh.com/projects/pulseboard"
+  sameAs: "https://winledger.vercel.app"
 ---
 
 import PulseboardSequence from '../../components/diagrams/PulseboardSequence.astro';
@@ -28,58 +31,88 @@ A few weeks into my role as Customer Product Manager at Zuper, a colleague asked
 
 I blanked.
 
-Not because I hadn't done enough. The opposite. I work across product, CX, sales, marketing, and RevOps simultaneously. On any given week I might be sitting in a customer call, writing a spec, debugging an implementation, and reviewing a roadmap request. The work is scattered by design. The problem is that scattered work doesn't accumulate naturally into a narrative. It just disappears.
+Not because I hadn't done enough. The opposite. I worked across product, CX, sales, marketing and RevOps at the same time. In any given week I might sit in a customer call, write a spec, debug an implementation and review a roadmap request. The work was scattered by design, and scattered work doesn't add up to a story on its own. It just disappears.
 
-My colleague laughed and suggested I start tracking. I opened a new tab instead.
+So I built Pulseboard over a weekend. I scoped it with GPT, wrote the spec with Claude, built the UI on Lovable and put it on Supabase. It logged my work by category and team, showed where my effort went, and used AI to draft a performance summary from the log.
 
-The obvious solution was a spreadsheet. The problem with a spreadsheet is that it records what happened but doesn't help you understand it. I wanted something that could tell me not just what I logged, but what it added up to, which teams I'd been pulling toward, where my effort was actually going versus where I thought it was going, what I could point to at a performance review without having to reconstruct three months from memory.
+It taught me one real thing. Within two weeks of logging, I could see I spent far more time on implementation support and cross-team coordination than I'd estimated. The work that felt most visible, writing specs and sitting with customers, was a smaller share of my week than I thought. That gap between what you think you do and what you actually do is still the most useful thing the product has shown me.
 
-That's Pulseboard. Not a tracker, a lightweight reflection system. The distinction matters: a tracker is passive, a reflection system is active. One stores data. The other surfaces patterns.
+When I first wrote this page, I listed what I'd do differently. The AI summary was impressive before it was useful. I should have started from the output, not the input. And I should have thought harder about the name. In November 2026 I went back and did all three.
 
 ---
 
-## The Build
+## Reviewing My Own Product Like I Had to Launch It
 
-I scoped the idea with GPT, wrote the technical spec with Claude, built the UI on Lovable, and used Supabase for the backend. The whole thing from idea to working app was a weekend.
+I came back to Pulseboard with three questions. Is it clear what this is? Would a stranger's first five minutes work? Would someone trust it with a year of their work?
 
-That speed is the point. I wasn't trying to build a product company. I was trying to solve a problem I had, fast enough to learn from using it rather than from planning it.
+The answers were uncomfortable.
+
+The product didn't know what it was. This page called it a reflection tool. The app's own landing page called it a performance review generator for product managers, engineers and designers. Neither was quite true.
+
+Onboarding assumed my job. You had to name at least one team before you could start, reviews ran on calendar quarters, and the examples were all product and engineering. A freelancer, a nurse or anyone on an April fiscal year was either blocked or mis-served on the second screen.
+
+The trust story had holes. The AI endpoint didn't check who was calling, so anyone holding the site's public key could use it as a free model on my credits. There was no way to delete an account, and no notice that your work notes went to a third-party model.
+
+And there were bugs that quietly damaged the record, which is the one thing a work log can't do. Cancelling an edit and then adding a new entry overwrote the old one. Dates were read as UTC, so anyone west of London would see every entry a day early. Lists silently stopped at a thousand entries. In November, the weekly view opened on week three of January.
+
+---
+
+## Decisions That Weren't Obvious
 
 <PulseboardSequence />
 
-The build process itself was a deliberate experiment in what a PM without a dedicated engineering team can actually ship. The answer, it turns out, is more than most people assume, if you're willing to write a tight spec, pick tools that reduce surface area, and be honest about what v1 doesn't need to do.
+**01. It's a brag sheet, and its competitor is a spreadsheet**
 
-What shipped: daily activity logging with auto-categorization by work type and team, weekly and monthly summaries that visualize effort distribution, AI-generated performance summaries that pull from the log and produce something close to review-ready language, and secure login so the data stays private.
+Almost everyone I know in a corporate job keeps an Excel file of their wins and digs it out at review time or when they start job hunting. That's the job this product does, and the reflection framing was a nicer story than the one people actually live.
 
-What didn't ship in v1: anything social, anything collaborative, anything that required managing other people's data. Pulseboard is a personal tool. That constraint kept the scope honest.
+Naming the competitor changed the roadmap. Logging a win has to be faster than adding a row, so the main screen opens on a single line: type what you did, press Enter, done. And the first-run experience became "bring the sheet you already keep". The import takes any columns and any layout. It guesses which column is which, works out whether 03/04 means March or April from the rest of the sheet, reads months and quarters, previews the result and explains every row it skips. For people without a sheet, there's a start-fresh path: pick your role for suggested categories, then list what you remember from each recent quarter, one line per win, no exact dates needed.
+
+**02. I removed the AI**
+
+This was the hardest call, because the AI summary was the feature I was proudest of. Two things decided it. The prompt asked the model to "quantify achievements", which invites invented numbers in a document people hand to their employer. And a brag sheet is full of confidential work detail that people had no reason to expect would leave the app.
+
+The summary is now built only from what you wrote: pick a period and get plain text grouped by category, with the impact and praise attached, ready to paste into a self-review. Nothing is rewritten, summarised or invented, and no AI provider receives anyone's entries. Knowing where a model doesn't earn its place is part of the job.
+
+**03. Fix the record before adding anything**
+
+A work log that loses or shifts entries is worse than none, because it still looks complete. Every data bug came before any new feature. Dates now go through one module that treats them as calendar days, and the tests run in Los Angeles, Kolkata and Auckland time, because date bugs only show up away from UTC. The fetch pages past a thousand entries. Saves resolve as success or failure, and the form only closes on success.
+
+**04. Own the stack**
+
+The weekend version ran on a Supabase project that Lovable created and controlled. I moved everything onto infrastructure I own. The database schema was rewritten from scratch, and its row-level security was checked against a local Postgres with two test users: neither could read or write the other's entries or files. On top of that sit account deletion, plain-language privacy and terms pages, and Google sign-in. Hosting is on Vercel.
+
+**05. A new name**
+
+On the original page I wrote that names are cheaper to change before launch than after. So I changed it. I ran a brand pass with one hard constraint, that the name's address had to actually be free, and Winledger came out of it: a running record you add to and read back, which is exactly what the spreadsheet was trying to be.
 
 ---
 
-## What the Build Revealed
+## How Version Two Was Built
 
-The most useful thing Pulseboard taught me wasn't about the product. It was about how I'd been spending my time.
+The weekend version tested what a PM can ship with no engineering team. Version two tested something else: what a PM can ship with an AI coding agent as the engineering team.
 
-Within two weeks of logging consistently, the pattern was clear: I was spending significantly more time on implementation support and cross-team coordination than I had estimated. The work that felt most visible to me (writing specs, sitting with customers) was a smaller fraction of my actual week than I'd assumed. The invisible work (answering BA questions, unblocking engineers, reviewing edge cases) was eating more than I realized.
+I used Claude Code for the whole rebuild. It started with four parallel reviews of the codebase, each from one angle: a product audit, a daily user's journey, whether onboarding fit anyone but me, and multi-user security. I merged those into one prioritised plan. Then three tracks of work ran in parallel on separate git branches (brand and landing page, the core app, and trust and onboarding), and I merged and tested them.
 
-That's the gap between what you think you're doing and what you're actually doing. Pulseboard made it legible.
-
-The second thing it revealed: AI-generated summaries are good at volume but bad at weight. The system could produce a paragraph describing a busy week accurately, but it couldn't distinguish between a week where I made one important decision and a week where I handled twenty routine tasks. That's a product gap I'd fix in v2, some way to flag signal items separately from noise items, so the summary reflects significance, not just activity.
+My job was the part an agent can't own. I made the positioning call, decided the AI goes, set the order (fix the record first), approved each step that touched real accounts, and checked the results. The agent was fast at reading code and writing it. It still needed someone to decide what the product was for.
 
 ---
 
 ## What I'd Do Differently
 
-The spec I wrote before building was too focused on features and not focused enough on the data model. I defined what the app would do (log, categorize, summarize) before I defined what the data would need to look like to make those things useful. That order created rework. When I got to building the categorization logic, I had to revisit decisions I thought I'd already made.
+**There is one user, and it's me.** Everything above is a claim about what should work. I don't yet have evidence that anyone else returns weekly, which is the only metric that matters for a log. The spreadsheet's real failure is that people stop updating it in April, and software alone doesn't fix a habit. Reminders and a weekly nudge are the obvious next step, and I haven't built them.
 
-The lesson: for any app that generates insights from logged data, start with the output, not the input. Define what the weekly summary should look like, then design the data model that makes it possible, then build the logging interface that captures it. I did it in the wrong order and paid for it in one unnecessary rebuild of the category schema.
+**The signal-versus-noise flag still isn't built.** Version one's biggest lesson was that a summary should reflect significance, not volume. A way to mark the wins that matter is still on the list, two versions later.
 
-I also built the AI summary feature too early. It was the most satisfying feature to demo, watching it generate a paragraph from a week of logs felt like proof the thing worked. But I used that satisfaction as a reason to stop building rather than a reason to keep asking questions. The summary feature was impressive before it was useful. I'd swap that order.
-
-Small thing: the name. Pulseboard captures the "reflection system" idea reasonably well. I'd think harder about it next time. Names are cheaper to change before launch than after.
+**Some edges are visible.** Google's consent screen names the backend's address instead of Winledger's, because a fix needs a paid custom domain. Sign-up emails come from Supabase's built-in mailer, which is rate limited and not meant for a real launch.
 
 ---
 
-## Try it out
+## What This Is Evidence Of
 
-Pulseboard is live. Log a week of work and see what the summary surfaces.
+The interesting work in version two wasn't the code. It was deciding what the product was (a brag sheet, not a reflection system), who it competes with (the spreadsheet people already keep), what to cut (the feature I was proudest of), and what has to be true before anything new gets built (the record can't lose your work).
 
-<a href="https://pulseboards.lovable.app/" target="_blank" rel="noopener noreferrer">Open Pulseboard →</a>
+It's also a working answer to a question I get asked a lot: what changes when a PM has an AI agent that can write the code? The building gets cheap. The judgement doesn't.
+
+---
+
+*Winledger is a React and TypeScript web app on Supabase (Postgres, auth, storage), hosted on Vercel and built with Claude Code. Version one, Pulseboard, was built on Lovable in 2025. [Winledger is live and free](https://winledger.vercel.app): bring the spreadsheet you already keep, or log this week's wins one line at a time.*

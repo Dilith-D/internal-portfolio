@@ -81,7 +81,7 @@ src/
 │   ├── writing/spotify-wrapped.mdx
 │   ├── projects/index.astro
 │   ├── projects/iris.mdx
-│   ├── projects/pulseboard.mdx
+│   ├── projects/pulseboard.mdx   — Winledger (renamed Nov 2026; slug kept, /projects/winledger redirects)
 │   ├── about.astro
 │   ├── now.astro
 │   ├── contact.astro
@@ -311,7 +311,7 @@ These govern all text on the site. Do not violate them when writing new content:
 - No exclamation marks
 - No "I am passionate about..."
 - No startup buzzwords (seamless, unleash, next-gen, elevate)
-- Em dashes (—) for pauses, not hyphens
+- No em dashes in user-visible copy (reversed Jul 2026, see CLAUDE.md Copy Rules). Use a comma, full stop, colon or parentheses
 - Tags: UPPERCASE with · separators
 - Dates: "Jan 2025" or "2024" — never "January 2025, 14th"
 - No bullet-pointed skill lists anywhere

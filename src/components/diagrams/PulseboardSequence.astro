@@ -1,55 +1,76 @@
 ---
 ---
 <div class="diagram-wrap">
-  <p class="diagram-label">Pulseboard: Build Sequence</p>
+  <p class="diagram-label">From Pulseboard to Winledger</p>
 
+  <p class="phase-label">Version one, 2025: one weekend</p>
   <div class="timeline">
     <div class="tl-step">
       <div class="tl-left">
-        <div class="tl-dot dot-dark">1</div>
-        <div class="tl-line"></div>
-      </div>
-      <div class="tl-card tl-card-dark">
-        <div class="tl-stage">Scope</div>
-        <div class="tl-tool">GPT: problem definition, feature list, edge cases</div>
-      </div>
-    </div>
-
-    <div class="tl-step">
-      <div class="tl-left">
-        <div class="tl-dot">2</div>
+        <div class="tl-dot">1</div>
         <div class="tl-line"></div>
       </div>
       <div class="tl-card">
-        <div class="tl-stage">Spec</div>
-        <div class="tl-tool">Claude: technical spec, data model, component architecture</div>
+        <div class="tl-stage">Scope and spec</div>
+        <div class="tl-tool">GPT for the problem and feature list, Claude for the technical spec</div>
       </div>
     </div>
-
-    <div class="tl-step">
+    <div class="tl-step tl-step-last">
       <div class="tl-left">
-        <div class="tl-dot">3</div>
-        <div class="tl-line"></div>
+        <div class="tl-dot">2</div>
       </div>
       <div class="tl-card">
         <div class="tl-stage">Build</div>
-        <div class="tl-tool">Lovable: UI scaffolding, component generation</div>
+        <div class="tl-tool">Lovable for the UI, Supabase for auth and data</div>
       </div>
     </div>
+  </div>
 
+  <p class="phase-label">Version two, Nov 2026: audit, decide, rebuild</p>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-left">
+        <div class="tl-dot dot-dark">3</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-card tl-card-dark">
+        <div class="tl-stage">Audit</div>
+        <div class="tl-tool">Claude Code: four parallel reviews (product, daily use, onboarding, security)</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-left">
+        <div class="tl-dot">4</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-stage">Decide</div>
+        <div class="tl-tool">Brag sheet, not reflection tool. Remove the AI. Fix the record first. Own the stack.</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-left">
+        <div class="tl-dot">5</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-stage">Rebuild</div>
+        <div class="tl-tool">Claude Code: three parallel tracks (brand, core app, trust) on separate branches</div>
+      </div>
+    </div>
     <div class="tl-step tl-step-last">
       <div class="tl-left">
-        <div class="tl-dot dot-blue">4</div>
+        <div class="tl-dot dot-blue">6</div>
       </div>
       <div class="tl-card tl-card-blue">
-        <div class="tl-stage tl-stage-blue">Backend</div>
-        <div class="tl-tool">Supabase: auth, database, realtime</div>
+        <div class="tl-stage tl-stage-blue">Ship</div>
+        <div class="tl-tool">Winledger on Vercel, own Supabase project, Google sign-in</div>
       </div>
     </div>
   </div>
 
   <div class="bottom-note">
-    Idea to working app: one weekend. The constraint was clarity, not time.
+    The first version tested what a PM can ship alone. The second tested what a PM decides when the code is cheap.
   </div>
 </div>
 
@@ -102,7 +123,7 @@
   }
   .dot-dark {
     background: var(--color-primary);
-    color: #F9F7F4;
+    color: var(--color-background);
     border-color: var(--color-primary);
   }
   .dot-blue {
@@ -143,8 +164,11 @@
     color: var(--color-secondary);
     line-height: 1.3;
   }
+  /* Inverted card: text uses the page background colour so it stays readable
+     in both themes (the primary/background pair swaps in dark mode). */
   .tl-card-dark .tl-stage {
-    color: rgba(249, 247, 244, 0.5);
+    color: var(--color-background);
+    opacity: 0.6;
   }
   .tl-stage-blue {
     color: var(--color-blue) !important;
@@ -155,7 +179,17 @@
     line-height: 1.4;
   }
   .tl-card-dark .tl-tool {
-    color: rgba(249, 247, 244, 0.65);
+    color: var(--color-background);
+    opacity: 0.8;
+  }
+  .phase-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin: 0 0 10px;
+  }
+  .timeline + .phase-label {
+    margin-top: 18px;
   }
   .bottom-note {
     margin-top: 6px;
